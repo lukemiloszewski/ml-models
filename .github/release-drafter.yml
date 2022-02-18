@@ -1,0 +1,57 @@
+version-template: "v$MAJOR.$MINOR.$PATCH"
+version-resolver:
+  major:
+    labels:
+      - 'breaking'
+  minor:
+    labels:
+      - 'feature'
+  patch:
+    labels:
+      - 'bug'
+      - 'chore'
+  default: patch
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+template: |
+  # What's Changed
+  $CHANGES
+categories:
+  - title: ":bang: Breaking Changes"
+    label: "breaking"
+  - title: ":rocket: Features"
+    label: "feature"
+  - title: ":beetle: Fixes"
+    label: "bug"
+  - title: ":wrench: Chores"
+    label: "chore"
+  - title: ":fire: Removals and Deprecations"
+    label: "removal"
+  - title: ":package: Dependencies"
+    label: "dependencies"
+autolabeler:
+  - label: 'breaking'
+    branch:
+      - '/breaking\/.+/'
+  - label: 'feature'
+    branch:
+      - '/feature\/.+/'
+  - label: 'bug'
+    branch:
+      - '/bug\/.+/'
+      - '/fix\/.+/'
+  - label: 'removal'
+    branch:
+      - '/removal\/.+/'
+  - label: 'dependencies'
+    branch:
+      - '/dependencies\/.+/'
+      - '/deps\/.+/'
+  - label: 'release'
+    branch:
+      - '/release\/.+/'
+exclude-labels:
+  - 'skip-changelog'
+  - 'release'
+  - 'question'
