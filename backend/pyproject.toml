@@ -17,7 +17,12 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7.1"
+python = "^3.8.1"
+fastapi = "^0.74.0"
+numpy = "^1.22.2"
+onnxruntime = "^1.10.0"
+pydantic = "^1.9.0"
+opencv-python = "^4.5.5"
 
 [tool.poetry.dev-dependencies]
 black = "^22.0.0"
