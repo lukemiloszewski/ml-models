@@ -5,7 +5,7 @@ import numpy as np
 from ml_models.context import Context
 
 
-def predict_mnist_service(context: Context, input_data):
+def predict_mnist(context: Context, input_data):
     mnist_session = context.resources.mnist
     input_name = mnist_session.get_inputs()[0].name
     output_name = mnist_session.get_outputs()[0].name
