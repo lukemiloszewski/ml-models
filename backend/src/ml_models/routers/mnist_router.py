@@ -16,7 +16,7 @@ tag = {
 }
 
 
-@router.post("/predict/mnist")
+@router.post("/predict/mnist", summary="MNIST Prediction", tags=["Models"])
 async def predict(
     image: UploadFile = File(...), context: Context = Depends(get_context_dependency)
 ):

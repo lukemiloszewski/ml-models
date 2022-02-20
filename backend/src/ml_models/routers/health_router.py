@@ -4,10 +4,10 @@ router = APIRouter()
 prefix = "/v1"
 tag = {
     "name": "General",
-    "description": "Endpoints for monitoring and health checks",
+    "description": "Endpoints for service monitoring",
 }
 
 
-@router.get("/health", summary="Health endpoint", tags=["General"])
+@router.get("/health", summary="Health Check", tags=["General"])
 async def health():
     return {"message": "Service is up and running"}
