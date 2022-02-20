@@ -8,6 +8,7 @@ import onnxruntime
 _CONTEXT: Optional[Context] = None
 _ONNX_PATH = str(pathlib.Path(__file__).parent / "data/mnist.onnx")
 
+
 class Attributes:
     def __init__(self, attributes_dict: Dict[str, Any]) -> None:
         self._attributes_dict = attributes_dict

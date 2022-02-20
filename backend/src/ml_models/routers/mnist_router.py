@@ -1,12 +1,12 @@
 import json
 
 import cv2
-from fastapi import APIRouter, Depends, File, UploadFile
-from ml_models.services.mnist_service import predict_mnist
 import numpy as np
+from fastapi import APIRouter, Depends, File, UploadFile
 
 from ml_models.context import Context
 from ml_models.dependencies import get_context_dependency
+from ml_models.services.mnist_service import predict_mnist
 
 router = APIRouter()
 prefix = "/v1"
@@ -17,7 +17,9 @@ tag = {
 
 
 @router.post("/predict/mnist")
-async def predict(image: UploadFile = File(...), context: Context = Depends(get_context_dependency)):
+async def predict(
+    image: UploadFile = File(...), context: Context = Depends(get_context_dependency)
+):
     content = await image.read()
 
     img_encoding = np.fromstring(content, np.uint8)
