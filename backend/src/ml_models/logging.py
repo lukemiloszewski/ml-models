@@ -1,7 +1,6 @@
 import logging
 import sys
 
-
 _DEFAULT_LOG_FORMAT = "%(asctime)s|%(levelname)s|%(thread)d|%(module)s|%(message)s"
 
 

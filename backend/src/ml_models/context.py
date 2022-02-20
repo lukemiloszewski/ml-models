@@ -4,7 +4,6 @@ from typing import Any, Dict, Optional
 
 import onnxruntime
 
-
 _CONTEXT: Optional[Context] = None
 
 
@@ -47,7 +46,7 @@ class Context:
 def configure_context():
     global _CONTEXT
 
-    mnist_model = 'model.onnx'
+    mnist_model = "model.onnx"
     mnist_session = onnxruntime.InferenceSession(mnist_model, None)
 
     attributes_dict = {
