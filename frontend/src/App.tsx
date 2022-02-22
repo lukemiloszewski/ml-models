@@ -14,10 +14,21 @@ function App() {
     hideInterface: false,
     immediateLoading: true,
   });
+  const [saveableCanvas, setSaveableCanvas] = useState<CanvasDraw | null>(null);
 
   return (
     <div>
-      <CanvasDraw {...state} />
+      <CanvasDraw
+        {...state}
+        ref={(canvasDraw: CanvasDraw) => setSaveableCanvas(canvasDraw)}
+      />
+      <button
+        onClick={() => {
+          saveableCanvas?.clear();
+        }}
+      >
+        Clear
+      </button>
     </div>
   );
 }
