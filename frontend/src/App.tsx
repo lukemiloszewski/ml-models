@@ -4,15 +4,14 @@ import CanvasDraw from "react-canvas-draw";
 function App() {
   const [state, setState] = useState({
     loadTimeOffset: 0,
-    lazyRadius: 10,
-    brushRadius: 8,
+    lazyRadius: 0,
+    brushRadius: 5,
     brushColor: "red",
-    catenaryColor: "blue",
+    catenaryColor: "red",
     hideGrid: false,
     canvasWidth: 300,
     canvasHeight: 300,
     hideInterface: false,
-    immediateLoading: true,
   });
   const [saveableCanvas, setSaveableCanvas] = useState<CanvasDraw | null>(null);
 
