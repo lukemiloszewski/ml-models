@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 import CanvasDraw from "react-canvas-draw";
 
-import { Container } from "../../components/Container/Container";
+import { Canvas } from "../../components";
+import { Container } from "../../components";
 
 export function Mnist() {
-  const [state, setState] = useState({
+  const [state] = useState({
     loadTimeOffset: 0,
     lazyRadius: 0,
     brushRadius: 5,
@@ -20,9 +21,9 @@ export function Mnist() {
   return (
     <Container>
       <div>
-        <CanvasDraw
+        <Canvas
           {...state}
-          ref={(canvasDraw: CanvasDraw) => setSaveableCanvas(canvasDraw)}
+          ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
         />
         <button
           onClick={() => {
