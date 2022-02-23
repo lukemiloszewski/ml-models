@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import CanvasDraw from "react-canvas-draw";
 
-import { Canvas } from "../../components";
-import { Container } from "../../components";
+import { Button, Canvas, Container } from "../../components";
 
 export function Mnist() {
   const [state] = useState({
@@ -25,13 +24,13 @@ export function Mnist() {
           {...state}
           ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
         />
-        <button
+        <Button
           onClick={() => {
             saveableCanvas?.clear();
           }}
         >
           Clear
-        </button>
+        </Button>
       </div>
     </Container>
   );
