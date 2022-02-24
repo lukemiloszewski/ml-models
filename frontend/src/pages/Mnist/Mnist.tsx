@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import axios from "axios";
 import CanvasDraw from "react-canvas-draw";
 
 import { Button, Canvas, Container } from "../../components";
@@ -16,6 +17,16 @@ export function Mnist() {
     hideInterface: true,
   });
   const [saveableCanvas, setSaveableCanvas] = useState<CanvasDraw | null>(null);
+  const [imageData, setImageData] = useState<String | undefined>("");
+  const [response, setResponse] = useState("Loading...");
+
+  useEffect(() => {
+    axios
+      .post("http://127.0.0.1:8000/v1/predict/mnist", { image: imageData })
+      .then((res) => {
+        setResponse(res.data.image_prediction);
+      });
+  }, [imageData]);
 
   return (
     <Container>
@@ -30,6 +41,13 @@ export function Mnist() {
           }}
         >
           Clear
+        </Button>
+        <Button
+          onClick={() => {
+            setImageData(saveableCanvas?.getSaveData());
+          }}
+        >
+          Predict
         </Button>
       </div>
     </Container>
