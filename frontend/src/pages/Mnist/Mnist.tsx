@@ -9,7 +9,7 @@ export function Mnist() {
   const [state] = useState({
     loadTimeOffset: 0,
     lazyRadius: 0,
-    brushRadius: 5,
+    brushRadius: 10,
     brushColor: "black",
     hideGrid: true,
     canvasWidth: 300,
@@ -18,34 +18,25 @@ export function Mnist() {
   });
   const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-  const [response, setResponse] = useState("Loading...");
+  const [response, setResponse] = useState<any>("Waiting...");
 
   useEffect(() => {
     if (imageData) {
-      var base64result = imageData?.split(",")[1];
-    } else {
-      var base64result = "";
+      var imgStr = imageData?.split(",")[1];
+      let formData = new FormData();
+      formData.append("file", imgStr);
+      axios
+        .post(
+          "http://localhost:8000/v1/predict/mnist",
+
+          {
+            file: formData.get("file"),
+          }
+        )
+        .then((res) => {
+          setResponse(res.data.result);
+        });
     }
-    let imageD = new FormData();
-    imageD.append("file", base64result);
-    console.log(imageD.get("file"));
-
-    axios
-      .post(
-        "http://localhost:8000/v1/predict/mnist",
-
-        {
-          file: imageD.get("file"),
-        },
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setResponse(res.data.image_prediction);
-      });
   }, [imageData]);
 
   return (
@@ -58,17 +49,22 @@ export function Mnist() {
         <Button
           onClick={() => {
             saveableCanvas?.clear();
+            setResponse("Waiting...");
           }}
         >
           Clear
         </Button>
         <Button
           onClick={() => {
-            setImageData(saveableCanvas?.getDataURL("png", false, "white"));
+            const { lines } = JSON.parse(saveableCanvas?.getSaveData());
+            if (lines.length > 0) {
+              setImageData(saveableCanvas?.getDataURL("png", false, "white"));
+            }
           }}
         >
           Predict
         </Button>
+        <Button>{response}</Button>
       </div>
     </Container>
   );
