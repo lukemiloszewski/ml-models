@@ -16,13 +16,33 @@ export function Mnist() {
     canvasHeight: 300,
     hideInterface: true,
   });
-  const [saveableCanvas, setSaveableCanvas] = useState<CanvasDraw | null>(null);
-  const [imageData, setImageData] = useState<String | undefined>("");
+  const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
+  const [imageData, setImageData] = useState<string | null>(null);
   const [response, setResponse] = useState("Loading...");
 
   useEffect(() => {
+    if (imageData) {
+      var base64result = imageData?.split(",")[1];
+    } else {
+      var base64result = "";
+    }
+    let imageD = new FormData();
+    imageD.append("file", base64result);
+    console.log(imageD.get("file"));
+
     axios
-      .post("http://127.0.0.1:8000/v1/predict/mnist", { image: imageData })
+      .post(
+        "http://localhost:8000/v1/predict/mnist",
+
+        {
+          file: imageD.get("file"),
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      )
       .then((res) => {
         setResponse(res.data.image_prediction);
       });
@@ -44,7 +64,7 @@ export function Mnist() {
         </Button>
         <Button
           onClick={() => {
-            setImageData(saveableCanvas?.getSaveData());
+            setImageData(saveableCanvas?.getDataURL("png", false, "white"));
           }}
         >
           Predict

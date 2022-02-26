@@ -1,8 +1,10 @@
+import base64
 import json
+import logging
 
 import cv2
 import numpy as np
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Body, Depends, File, Form, UploadFile
 
 from ml_models.context import Context
 from ml_models.dependencies import get_context_dependency
@@ -14,16 +16,19 @@ tag = {
     "name": "Models",
     "description": "Endpoints for machine learning models",
 }
+from pydantic import BaseModel
+
+class Item(BaseModel):
+    file: str
 
 
 @router.post("/predict/mnist", summary="MNIST Prediction", tags=["Models"])
 async def predict(
-    image: UploadFile = File(...), context: Context = Depends(get_context_dependency)
+    file: Item = Body(...), context: Context = Depends(get_context_dependency)
 ):
-    content = await image.read()
-
-    img_encoding = np.fromstring(content, np.uint8)
-    img_raw = cv2.imdecode(img_encoding, cv2.IMREAD_COLOR)
+    nparr = np.frombuffer(base64.b64decode(file.file), np.uint8)
+    img_raw = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    
     img = preprocess(img_raw)
 
     input_data = json.dumps({"data": img.tolist()})
