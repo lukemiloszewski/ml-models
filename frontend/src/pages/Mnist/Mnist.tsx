@@ -18,8 +18,8 @@ export function Mnist() {
     brushRadius: 10,
     brushColor: "black",
     hideGrid: true,
-    canvasWidth: 300,
-    canvasHeight: 300,
+    canvasWidth: 290,
+    canvasHeight: 290,
     hideInterface: true,
   });
   const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
@@ -47,33 +47,32 @@ export function Mnist() {
 
   return (
     <Container>
-      <div>
-        <Canvas
-          {...state}
-          ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
-        />
-        <Prediction>{response}</Prediction>
-        <ButtonGroup>
-          <Button
-            onClick={() => {
-              saveableCanvas?.clear();
-              setResponse("...");
-            }}
-          >
-            Clear
-          </Button>
-          <Button
-            onClick={() => {
-              const { lines } = JSON.parse(saveableCanvas?.getSaveData());
-              if (lines.length > 0) {
-                setImageData(saveableCanvas?.getDataURL("png", false, "white"));
-              }
-            }}
-          >
-            Predict
-          </Button>
-        </ButtonGroup>
-      </div>
+      <h1>MNIST Digit Classification</h1>
+      <Canvas
+        {...state}
+        ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
+      />
+      <Prediction>{response}</Prediction>
+      <ButtonGroup>
+        <Button
+          onClick={() => {
+            saveableCanvas?.clear();
+            setResponse("...");
+          }}
+        >
+          Clear
+        </Button>
+        <Button
+          onClick={() => {
+            const { lines } = JSON.parse(saveableCanvas?.getSaveData());
+            if (lines.length > 0) {
+              setImageData(saveableCanvas?.getDataURL("png", false, "white"));
+            }
+          }}
+        >
+          Predict
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 }
