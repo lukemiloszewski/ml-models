@@ -1,6 +1,5 @@
 import base64
 import json
-import math
 
 import cv2
 from fastapi import APIRouter, Body, Depends
@@ -23,10 +22,8 @@ tag = {
 async def predict(
     request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):
-    nparr = np.frombuffer(base64.b64decode(request.data), np.uint8)
-    img_raw = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    
-    img = preprocess_mnist(img_raw)
+    img_str = request.data
+    img = preprocess_mnist(img_str)
 
     input_data = json.dumps({"data": img.tolist()})
 
