@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import pathlib
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 import onnxruntime
 
 _CONTEXT: Optional[Context] = None
-_ONNX_PATH = str(pathlib.Path(__file__).parent / "data/mnist.onnx")
 
 
 class Attributes:
@@ -45,11 +44,11 @@ class Context:
         self.resources = resources
 
 
-def configure_context():
+def configure_context(root_path: Path, mnist_onnx_path: str):
     global _CONTEXT
 
-    mnist_model = _ONNX_PATH
-    mnist_session = onnxruntime.InferenceSession(mnist_model, None)
+    mnist_path = str(root_path / mnist_onnx_path)
+    mnist_session = onnxruntime.InferenceSession(mnist_path, None)
 
     attributes_dict = {
         "mnist": mnist_session,
