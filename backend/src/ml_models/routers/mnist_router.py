@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body, Depends
 
 from ml_models.context import Context
 from ml_models.dependencies import get_context_dependency
-from ml_models.models.mnist_model import MnistRequest
+from ml_models.models.mnist_model import MnistRequest, MnistResponse
 from ml_models.services.mnist_service import get_mnist_prediction
 
 router = APIRouter()
@@ -13,7 +13,7 @@ tag = {
 }
 
 
-@router.post("/predict/mnist", summary="MNIST Prediction", tags=["Models"])
+@router.post("/predict/mnist", response_model=MnistResponse, summary="MNIST Prediction", tags=["Models"])
 async def predict(
     request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):
