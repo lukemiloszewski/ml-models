@@ -32,7 +32,7 @@ class Context:
         self.resources = resources
 
 
-def configure_context(root_path: Path, mnist_onnx_path: str):
+def configure_context(root_path: Path, mnist_onnx_path: Path):
     global _CONTEXT
 
     mnist_path = str(root_path / mnist_onnx_path)
