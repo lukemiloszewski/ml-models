@@ -12,21 +12,6 @@ class Attributes:
     def __init__(self, attributes_dict: Dict[str, Any]) -> None:
         self._attributes_dict = attributes_dict
 
-    def __getitem__(self, attribute_id) -> Any:
-        rv = self._get_attribute(attribute_id=attribute_id)
-        return rv
-
-    def __getattr__(self, attribute_id) -> Any:
-        rv = self._get_attribute(attribute_id=attribute_id)
-        return rv
-
-    def _get_attribute(self, attribute_id: str) -> Any:
-        attribute = self._attributes_dict.get(attribute_id, None)
-        if attribute is None:
-            err_msg = f"Invalid attribute: {attribute_id}, options are: {self.list()}"
-            raise AttributeError(err_msg)
-        return attribute
-
     def get(self, attribute_id: str, default=None) -> Any:
         try:
             rv = self._get_attribute(attribute_id=attribute_id)
@@ -34,9 +19,12 @@ class Attributes:
             rv = default
         return rv
 
-    def list(self):
-        rv = self._attributes_dict.keys()
-        return rv
+    def _get_attribute(self, attribute_id: str) -> Any:
+        attribute = self._attributes_dict.get(attribute_id, None)
+        if attribute is None:
+            err_msg = f"Invalid attribute: {attribute_id}, options are: {self._attributes_dict.keys()}"
+            raise AttributeError(err_msg)
+        return attribute
 
 
 class Context:
