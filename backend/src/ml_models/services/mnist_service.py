@@ -1,7 +1,5 @@
 import base64
-import json
 import math
-from typing import Dict
 
 import cv2
 import numpy as np
@@ -9,7 +7,7 @@ import numpy as np
 from ml_models.context import Context
 
 
-def get_mnist_prediction(context: Context, input_data: str) -> Dict[str,str]:
+def get_mnist_prediction(context: Context, input_data: str) -> int:
     mnist_session = context.resources.mnist
     input_name = mnist_session.get_inputs()[0].name
     output_name = mnist_session.get_outputs()[0].name
@@ -18,7 +16,7 @@ def get_mnist_prediction(context: Context, input_data: str) -> Dict[str,str]:
     return rv
 
 
-def _get_mnist_prediction(session, input_name: str, output_name: str, input_data: str) -> Dict[str,str]:
+def _get_mnist_prediction(session, input_name: str, output_name: str, input_data: str) -> int:
     preprocessed_data = _preprocess(input_data)
     prediction = _predict(session, input_name, output_name, preprocessed_data)
     return prediction
@@ -57,16 +55,7 @@ def _preprocess(input_data: str) -> np.ndarray:
     return img_28_by_28.astype("float32")
 
 
-def _predict(session, input_name, output_name, input_data: np.ndarray) -> Dict[str, str]:
-    try:
-        rv = session.run([output_name], {input_name: input_data})
-        result = _postprocess(rv)
-        result_dict = {"result": result}
-    except Exception as e:
-        result_dict = {"error": str(e)}
-
-    return result_dict
-
-
-def _postprocess(output_data) -> int:
-    return int(np.argmax(np.array(output_data).squeeze(), axis=0))
+def _predict(session, input_name, output_name, input_data: np.ndarray) -> int:
+    response = session.run([output_name], {input_name: input_data})
+    rv = int(np.argmax(np.array(response).squeeze(), axis=0))
+    return rv

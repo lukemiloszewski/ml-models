@@ -18,4 +18,4 @@ async def predict(
     request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):
     response = get_mnist_prediction(context=context, input_data=request.data)
-    return response
+    return {"result": response}
