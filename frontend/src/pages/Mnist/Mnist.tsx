@@ -10,6 +10,7 @@ import {
   Container,
   Prediction,
 } from "../../components";
+import { config } from "../../config";
 
 export function Mnist() {
   const [state] = useState({
@@ -30,13 +31,9 @@ export function Mnist() {
     if (imageData) {
       var imgStr = imageData?.split(",")[1];
       axios
-        .post(
-          "http://localhost:8000/v1/predict/mnist",
-
-          {
-            data: imgStr,
-          }
-        )
+        .post(config.REACT_APP_MNIST_URL, {
+          data: imgStr,
+        })
         .then((res) => {
           setResponse(res.data.result);
         });
