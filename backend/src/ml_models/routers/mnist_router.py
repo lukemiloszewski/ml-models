@@ -79,19 +79,3 @@ def process(img):
     center = cv2.warpAffine(box28,M,(cols,rows))
     center.resize((1, 1, 28, 28))
     return center
-
-
-def preprocess(img):
-    img_grayscaled = _convert_to_grayscale(img)
-    img_processed = _resize(img_grayscaled)
-    return img_processed
-
-
-def _convert_to_grayscale(img):
-    return np.dot(img[..., :3], [0.299, 0.587, 0.114])
-
-
-def _resize(img):
-    img_resized = cv2.resize(img, dsize=(28, 28), interpolation=cv2.INTER_AREA)
-    img_resized.resize((1, 1, 28, 28))
-    return img_resized
