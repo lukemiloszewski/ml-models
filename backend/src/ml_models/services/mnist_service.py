@@ -9,36 +9,18 @@ from scipy import ndimage
 from ml_models.context import Context
 
 
-def predict_mnist(context: Context, input_data):
+def get_mnist_prediction(context: Context, data: str):
     mnist_session = context.resources.mnist
     input_name = mnist_session.get_inputs()[0].name
     output_name = mnist_session.get_outputs()[0].name
 
-    result = _predict_mnist(mnist_session, input_name, output_name, input_data)
-    return result
+    preprocessed_data = preprocess(data)
+    prediction = predict(mnist_session, input_name, output_name, preprocessed_data)
+
+    return prediction
 
 
-def _predict_mnist(session, input_name, output_name, input_data):
-    try:
-        data = _preprocess(input_data)
-        rv = session.run([output_name], {input_name: data})
-        result = _postprocess(rv)
-        result_dict = {"result": result}
-    except Exception as e:
-        result_dict = {"error": str(e)}
-
-    return result_dict
-
-
-def _preprocess(input_data):
-    return np.array(json.loads(input_data)["data"]).astype("float32")
-
-
-def _postprocess(output_data):
-    return int(np.argmax(np.array(output_data).squeeze(), axis=0))
-
-
-def preprocess_mnist(img):
+def preprocess(img):
     nparr = np.frombuffer(base64.b64decode(img), np.uint8)
     img_raw = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
@@ -84,4 +66,27 @@ def preprocess_mnist(img):
     M = np.float32([[1,0,shiftX],[0,1,shiftY]])
     center = cv2.warpAffine(box28,M,(cols,rows))
     center.resize((1, 1, 28, 28))
-    return center
+
+    input_data = json.dumps({"data": center.tolist()})
+
+    return input_data
+
+
+def predict(session, input_name, output_name, input_data):
+    try:
+        data = _preprocess(input_data)
+        rv = session.run([output_name], {input_name: data})
+        result = _postprocess(rv)
+        result_dict = {"result": result}
+    except Exception as e:
+        result_dict = {"error": str(e)}
+
+    return result_dict
+
+
+def _preprocess(input_data):
+    return np.array(json.loads(input_data)["data"]).astype("float32")
+
+
+def _postprocess(output_data):
+    return int(np.argmax(np.array(output_data).squeeze(), axis=0))
