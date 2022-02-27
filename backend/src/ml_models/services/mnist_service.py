@@ -24,7 +24,7 @@ def _get_mnist_prediction(session, input_name: str, output_name: str, input_data
     return prediction
 
 
-def _preprocess(input_data: str) -> Dict[str, list]:
+def _preprocess(input_data: str) -> np.ndarray:
     input_array = np.frombuffer(base64.b64decode(input_data), np.uint8)
 
     img = cv2.imdecode(input_array, cv2.IMREAD_COLOR)  # raw image
@@ -54,24 +54,18 @@ def _preprocess(input_data: str) -> Dict[str, list]:
     img_28_by_28 = np.lib.pad(img_20_by_20,(rows_padding,cols_padding),'constant')  # 28x28 image
     img_28_by_28.resize((1, 1, 28, 28))
 
-    output_data = json.dumps({"data": img_28_by_28.tolist()})
-    return output_data
+    return img_28_by_28.astype("float32")
 
 
-def _predict(session, input_name, output_name, input_data) -> Dict[str, str]:
+def _predict(session, input_name, output_name, input_data: np.ndarray) -> Dict[str, str]:
     try:
-        data = _preprocess_output(input_data)
-        rv = session.run([output_name], {input_name: data})
+        rv = session.run([output_name], {input_name: input_data})
         result = _postprocess(rv)
         result_dict = {"result": result}
     except Exception as e:
         result_dict = {"error": str(e)}
 
     return result_dict
-
-
-def _preprocess_output(input_data):
-    return np.array(json.loads(input_data)["data"]).astype("float32")
 
 
 def _postprocess(output_data) -> int:
