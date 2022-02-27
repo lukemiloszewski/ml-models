@@ -17,5 +17,5 @@ tag = {
 async def predict(
     request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):
-    response = get_mnist_prediction(context=context, data=request.data)
+    response = get_mnist_prediction(context=context, input_data=request.data)
     return response
