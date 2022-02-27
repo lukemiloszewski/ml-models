@@ -1,15 +1,22 @@
 import json
 import logging
 import os
-from pathlib import Path
 import sys
 import time
+from pathlib import Path
 
 from starlette.requests import Request
 
-
 _DEFAULT_FORMAT = "%(asctime)s|%(levelname)s|%(thread)d|%(module)s|%(message)s"
-_JSON_FORMAT = json.dumps({"time": "%(asctime)s", "level": "%(levelname)s", "module": "%(module)s", "message": "%(message)s"})
+_JSON_FORMAT = json.dumps(
+    {
+        "time": "%(asctime)s",
+        "level": "%(levelname)s",
+        "module": "%(module)s",
+        "message": "%(message)s",
+    }
+)
+
 
 def configure_logging(logs_path: Path):
     console_formatter = logging.Formatter(_DEFAULT_FORMAT)
@@ -33,7 +40,7 @@ def configure_logging(logs_path: Path):
     logger.addHandler(file_handler)
 
 
-async def log_request_metadata(request: Request, call_next):    
+async def log_request_metadata(request: Request, call_next):
     logging.info(f"Request started: type={request.method}, path={request.url.path}")
     start_time = time.time()
     response = await call_next(request)

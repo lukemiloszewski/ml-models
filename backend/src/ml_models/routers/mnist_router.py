@@ -13,7 +13,9 @@ tag = {
 }
 
 
-@router.post("/predict/mnist", response_model=MnistResponse, summary="MNIST Prediction", tags=["Models"])
+@router.post(
+    "/predict/mnist", response_model=MnistResponse, summary="MNIST Prediction", tags=["Models"]
+)
 async def predict(
     request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):

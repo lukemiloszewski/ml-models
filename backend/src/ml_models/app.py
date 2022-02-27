@@ -21,8 +21,8 @@ def configure_app(cors_origins: List[str]) -> FastAPI:
         allow_origins=cors_origins,
         allow_credentials=True,
         allow_methods=["*"],
-        allow_headers=["*"]
-)
+        allow_headers=["*"],
+    )
 
     app.include_router(health_router.router, prefix=health_router.prefix)
     app.include_router(mnist_router.router, prefix=mnist_router.prefix)
