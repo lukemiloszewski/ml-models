@@ -6,5 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  max-width: 300px;
+  max-width: 270px;
+  @media (max-width: 768px) {
+    margin: 15px auto; /* top bottom left right */
+  }
 `;

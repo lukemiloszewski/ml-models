@@ -15,11 +15,11 @@ export function Mnist() {
   const [state] = useState({
     loadTimeOffset: 0,
     lazyRadius: 0,
-    brushRadius: 10,
+    brushRadius: 7,
     brushColor: "black",
     hideGrid: true,
-    canvasWidth: 290,
-    canvasHeight: 290,
+    canvasWidth: 260,
+    canvasHeight: 260,
     hideInterface: true,
   });
   const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
