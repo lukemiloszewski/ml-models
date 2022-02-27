@@ -6,7 +6,7 @@ from ml_models.logging import configure_logging
 
 
 def create_app(config) -> FastAPI:
-    configure_logging()
+    configure_logging(logs_path=config.LOGS_PATH)
     configure_context(root_path=config.ROOT_PATH, mnist_onnx_path=config.MNIST_ONNX_PATH)
 
     app = configure_app(cors_origins=config.CORS_ORIGINS)
