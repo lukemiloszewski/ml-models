@@ -30,13 +30,13 @@ export function Mnist() {
     if (imageData) {
       var imgStr = imageData?.split(",")[1];
       let formData = new FormData();
-      formData.append("file", imgStr);
+      formData.append("img_str", imgStr);
       axios
         .post(
           "http://localhost:8000/v1/predict/mnist",
 
           {
-            file: formData.get("file"),
+            file: formData.get("img_str"),
           }
         )
         .then((res) => {

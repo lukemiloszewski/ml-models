@@ -9,6 +9,7 @@ from scipy import ndimage
 
 from ml_models.context import Context
 from ml_models.dependencies import get_context_dependency
+from ml_models.models.mnist_model import MnistRequest
 from ml_models.services.mnist_service import predict_mnist
 
 router = APIRouter()
@@ -17,17 +18,13 @@ tag = {
     "name": "Models",
     "description": "Endpoints for machine learning models",
 }
-from pydantic import BaseModel
-
-class Item(BaseModel):
-    file: str
 
 
 @router.post("/predict/mnist", summary="MNIST Prediction", tags=["Models"])
 async def predict(
-    file: Item = Body(...), context: Context = Depends(get_context_dependency)
+    request: MnistRequest = Body(...), context: Context = Depends(get_context_dependency)
 ):
-    nparr = np.frombuffer(base64.b64decode(file.file), np.uint8)
+    nparr = np.frombuffer(base64.b64decode(request.img_str), np.uint8)
     img_raw = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     
     img = process(img_raw)
