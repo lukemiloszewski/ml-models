@@ -1,16 +1,14 @@
 FROM python:3.9
 
-WORKDIR /ml_models
+WORKDIR /code
 
-COPY ./requirements.txt /ml_models/requirements.txt
-COPY ./scripts/main.py /ml_models/main.py
+COPY ./src/ml_models /code/ml_models
+COPY ./requirements.txt /code/requirements.txt
+COPY ./scripts/main.py /code/main.py
 
 RUN apt-get -qq update \
     && apt-get -qq install -y --no-install-recommends \
-        build-essential \
         cmake \
-        git \
-        wget \
         unzip \
         yasm \
         pkg-config \
@@ -22,11 +20,10 @@ RUN apt-get -qq update \
         libtiff-dev \
         libopenjp2-7-dev \
         libavformat-dev \
-        libpq-dev
+        libpq-dev \
+        libgl1-mesa-glx
 
-RUN pip install --no-cache-dir --upgrade -r /ml_models/requirements.txt
-RUN pip install --no-cache-dir git+https://github.com/lukemiloszewski/ml-models@main#subdirectory=backend
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-RUN apt-get install libgl1-mesa-glx -y
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
