@@ -7,4 +7,6 @@ export const Prediction = styled.div`
   font-size: 1em;
   text-align: center;
   background-color: white;
+  color: black;
+  font-weight: bold;
 `;
