@@ -140,9 +140,9 @@ pydantic==1.9.0; python_full_version >= "3.6.1" \
 sniffio==1.2.0; python_version >= "3.6" and python_full_version >= "3.6.2" \
     --hash=sha256:471b71698eac1c2112a40ce2752bb2f4a4814c22a54a3eed3676bc0f5ca9f663 \
     --hash=sha256:c4666eecec1d3f50960c6bdf61ab7bc350648da6c126e3cf6898d8cd4ddcd3de
-starlette==0.17.1; python_version >= "3.6" and python_full_version >= "3.6.1" \
-    --hash=sha256:26a18cbda5e6b651c964c12c88b36d9898481cd428ed6e063f5f29c418f73050 \
-    --hash=sha256:57eab3cc975a28af62f6faec94d355a410634940f10b30d68d31cb5ec1b44ae8
+starlette==0.19.0; python_version >= "3.6" and python_full_version >= "3.6.1" \
+    --hash=sha256:4a1a92aa89dbacc3a4c694a2c112863e88449730ff99b421a9b71fb2213bcd9c \
+    --hash=sha256:de752c8f6c2ac6ef78bfe44058fc61dc04895eba24d4e47d2ae254ba5c125c5e
 typing-extensions==4.1.1; python_version >= "3.6" and python_full_version >= "3.6.1" \
     --hash=sha256:21c85e0fe4b9a155d0799430b0ad741cdce7e359660ccbd8b530613e8df88ce2 \
     --hash=sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42
