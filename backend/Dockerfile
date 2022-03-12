@@ -1,15 +1,23 @@
 FROM python:3.9
 
-WORKDIR /code
+RUN apt-get update && apt-get install libgl1-mesa-glx -y --no-install-recommends
 
-COPY ./src/ml_models /code/ml_models
-COPY ./requirements.txt /code/requirements.txt
-COPY ./scripts/main.py /code/main.py
+COPY ./scripts/main.py /main.py
+COPY ./start.sh /start.sh
+COPY ./gunicorn_conf.py /gunicorn_conf.py
 
-RUN apt-get update
-RUN apt-get install libgl1-mesa-glx -y --no-install-recommends
+RUN chmod +x /start.sh
+
+COPY ./requirements.txt /tmp/requirements.txt
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+COPY ./src/ml_models /ml_models
+WORKDIR /ml_models
+
+ENV PYTHONPATH=/ml_models
+
+EXPOSE 80
+
+CMD ["/start.sh"]
