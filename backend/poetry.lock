@@ -20,7 +20,7 @@ name = "asgiref"
 version = "3.5.0"
 description = "ASGI specs, helper code, and adapters"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.extras]
@@ -175,7 +175,7 @@ name = "gunicorn"
 version = "20.1.0"
 description = "WSGI HTTP Server for UNIX"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.5"
 
 [package.extras]
@@ -189,7 +189,7 @@ name = "h11"
 version = "0.13.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -553,7 +553,7 @@ name = "uvicorn"
 version = "0.17.6"
 description = "The lightning-fast ASGI server."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -582,10 +582,13 @@ six = ">=1.9.0,<2"
 docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
 testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
 
+[extras]
+all = ["uvicorn", "gunicorn"]
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.1"
-content-hash = "70a9fe85fda71c9671a053bf1c27daf4f8f3754e0dee04409bd78bd11d2cc41b"
+content-hash = "503e41a2d4441630435e5d2e6770188426114b810ea30a4af38536c83409f8d5"
 
 [metadata.files]
 anyio = [
