@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-import onnxruntime
+from ml_models.clients.mnist_client import MNISTClient
+
 
 _CONTEXT: Optional[Context] = None
 
@@ -32,11 +33,8 @@ class Context:
 def configure_context(root_path: Path, mnist_onnx_path: Path):
     global _CONTEXT
 
-    mnist_path = str(root_path / mnist_onnx_path)
-    mnist_session = onnxruntime.InferenceSession(mnist_path, None)
-
     client_dict = {
-        "mnist": mnist_session,
+        "mnist": MNISTClient(str(root_path / mnist_onnx_path)),
     }
 
     client_attributes = Attributes(attributes_dict=client_dict)
