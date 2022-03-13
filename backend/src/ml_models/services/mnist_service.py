@@ -8,7 +8,7 @@ from ml_models.context import Context
 
 
 def get_mnist_prediction(context: Context, input_data: str) -> int:
-    mnist_session = context.resources.get("mnist")
+    mnist_session = context.clients.get("mnistdd")
     input_name = mnist_session.get_inputs()[0].name
     output_name = mnist_session.get_outputs()[0].name
 
