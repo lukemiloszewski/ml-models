@@ -24,12 +24,12 @@ export function Mnist() {
     hideInterface: true,
   });
   const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
-  const [imageData, setImageData] = useState<string | null>(null);
+  const [imageData, setImageData] = useState<string>("");
   const [response, setResponse] = useState<any>("...");
 
   useEffect(() => {
-    if (imageData) {
-      var imgStr = imageData?.split(",")[1];
+    if (imageData.length > 0) {
+      var imgStr = imageData.split(",")[1];
       axios
         .post(config.REACT_APP_MNIST_URL, {
           data: imgStr,
@@ -51,7 +51,7 @@ export function Mnist() {
       <ButtonGroup>
         <Button
           onClick={() => {
-            saveableCanvas?.clear();
+            saveableCanvas.clear();
             setResponse("...");
           }}
         >
@@ -59,9 +59,9 @@ export function Mnist() {
         </Button>
         <Button
           onClick={() => {
-            const { lines } = JSON.parse(saveableCanvas?.getSaveData());
+            const { lines } = JSON.parse(saveableCanvas.getSaveData());
             if (lines.length > 0) {
-              setImageData(saveableCanvas?.getDataURL("png", false, "white"));
+              setImageData(saveableCanvas.getDataURL("png", false, "white"));
             }
           }}
         >
