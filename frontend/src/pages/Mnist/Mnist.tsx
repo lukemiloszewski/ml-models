@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import axios from "axios";
 import CanvasDraw from "react-canvas-draw";
 
 import {
@@ -11,6 +10,8 @@ import {
   Prediction,
 } from "../../components";
 import { config } from "../../config";
+import { MnistType } from "../../types/interfaces";
+import { useRestClient } from "../../utils/useRestClient";
 
 export function Mnist() {
   const [state] = useState({
@@ -25,20 +26,16 @@ export function Mnist() {
   });
   const [saveableCanvas, setSaveableCanvas] = useState<any>(null);
   const [imageData, setImageData] = useState<string>("");
-  const [response, setResponse] = useState<any>("...");
 
-  useEffect(() => {
-    if (imageData.length > 0) {
-      var imgStr = imageData.split(",")[1];
-      axios
-        .post(config.REACT_APP_MNIST_URL, {
-          data: imgStr,
-        })
-        .then((res) => {
-          setResponse(res.data.result);
-        });
-    }
-  }, [imageData]);
+  const enableQuery = imageData.length > 0;
+  const { data } = useRestClient<[MnistType]>(
+    ["mnist", imageData],
+    config.REACT_APP_MNIST_URL,
+    {
+      data: imageData,
+    },
+    enableQuery
+  );
 
   return (
     <Container>
@@ -47,12 +44,16 @@ export function Mnist() {
         {...state}
         ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
       />
-      <Prediction>{response}</Prediction>
+      {imageData ? (
+        <Prediction>{data}</Prediction>
+      ) : (
+        <Prediction>...</Prediction>
+      )}
       <ButtonGroup>
         <Button
           onClick={() => {
             saveableCanvas.clear();
-            setResponse("...");
+            setImageData("");
           }}
         >
           Clear
@@ -61,7 +62,9 @@ export function Mnist() {
           onClick={() => {
             const { lines } = JSON.parse(saveableCanvas.getSaveData());
             if (lines.length > 0) {
-              setImageData(saveableCanvas.getDataURL("png", false, "white"));
+              setImageData(
+                saveableCanvas.getDataURL("png", false, "white").split(",")[1]
+              );
             }
           }}
         >
