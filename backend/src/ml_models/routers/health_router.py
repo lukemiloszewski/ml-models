@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
 router = APIRouter()
-prefix = "/v1"
+prefix = ""
 tag = {
     "name": "General",
     "description": "Endpoints for service monitoring",
 }
 
 
-@router.get("/health", summary="Health Check", tags=["General"])
+@router.get("/", summary="Health Check", tags=["General"])
 async def health():
     return {"message": "Service is up and running"}
