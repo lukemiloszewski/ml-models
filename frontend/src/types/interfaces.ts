@@ -1,3 +1,3 @@
-export interface MnistType {
-    data: string;
+export interface MnistResponse {
+    result: number;
 }
