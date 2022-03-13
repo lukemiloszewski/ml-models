@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: executing ssh commands using ssh key
         uses: appleboy/ssh-action@master
+        env:
+          USERNAME: ${{ secrets.DASHBOARD_USERNAME }}
+          PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          HASHED_PASSWORD: ${{ secrets.DASHBOARD_HASHED_PASSWORD }}
         with:
           host: ${{ secrets.HOST}}
           username: ${{ secrets.USERNAME }}
