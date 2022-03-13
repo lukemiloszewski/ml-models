@@ -17,7 +17,7 @@ export const useRestClient = <T>(
 ): RESTClientType<T> => {
     const { data, error, isFetching, isLoading, refetch } = useQuery(
         dataType,
-        () => axios.post(url, payload).then((res) => res.data.result),
+        () => axios.post(url, payload).then((res) => res.data),
         {
             enabled: enable
         },
