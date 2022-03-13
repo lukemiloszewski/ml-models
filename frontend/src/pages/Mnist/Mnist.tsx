@@ -10,7 +10,7 @@ import {
   Prediction,
 } from "../../components";
 import { config } from "../../config";
-import { MnistType } from "../../types/interfaces";
+import { MnistResponse } from "../../types/interfaces";
 import { useRestClient } from "../../utils/useRestClient";
 
 export function Mnist() {
@@ -28,7 +28,7 @@ export function Mnist() {
   const [imageData, setImageData] = useState<string>("");
 
   const enableQuery = imageData.length > 0;
-  const { data } = useRestClient<[MnistType]>(
+  const { data } = useRestClient<MnistResponse>(
     ["mnist", imageData],
     config.REACT_APP_MNIST_URL,
     {
@@ -44,8 +44,8 @@ export function Mnist() {
         {...state}
         ref={(canvas: CanvasDraw) => setSaveableCanvas(canvas)}
       />
-      {imageData ? (
-        <Prediction>{data}</Prediction>
+      {data && imageData ? (
+        <Prediction>{data.result}</Prediction>
       ) : (
         <Prediction>...</Prediction>
       )}
