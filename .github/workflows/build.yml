@@ -13,16 +13,15 @@ jobs:
     steps:
       - name: executing ssh commands using ssh key
         uses: appleboy/ssh-action@master
-        # env:
-        #   USERNAME: ${{ secrets.DASHBOARD_USERNAME }}
-        #   PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
-        #   HASHED_PASSWORD: ${{ secrets.DASHBOARD_HASHED_PASSWORD }}
+        env:
+          HASHED_PASSWORD: ${{ secrets.DASHBOARD_HASHED_PASSWORD }}
         with:
           host: ${{ secrets.HOST}}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          # envs: USERNAME,PASSWORD,HASHED_PASSWORD
+          fingerprint: ${{ secrets.FINGERPRINT }}
+          envs: HASHED_PASSWORD
           script: |
             rm -rf ml-models
             git clone https://github.com/lukemiloszewski/ml-models.git
