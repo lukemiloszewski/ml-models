@@ -14,6 +14,7 @@ jobs:
       - name: executing ssh commands using ssh key
         uses: appleboy/ssh-action@master
         env:
+          CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
         with:
@@ -23,11 +24,12 @@ jobs:
           port: ${{ secrets.PORT }}  # ssh port
           # fingerprint: ${{ secrets.FINGERPRINT }}
           script_stop: true
-          envs: DASHBOARD_PASSWORD,DASHBOARD_URL
+          envs: CORS_ORIGINS,DASHBOARD_PASSWORD,DASHBOARD_URL
           script: |
             rm -rf ml-models
             git clone https://github.com/lukemiloszewski/ml-models.git
             cd ml-models/backend
+            export CORS_ORIGINS=$CORS_ORIGINS
             export DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
             export DASHBOARD_HASHED_PASSWORD=$(openssl passwd -apr1 $DASHBOARD_PASSWORD)
             export DASHBOARD_URL=$DASHBOARD_URL
