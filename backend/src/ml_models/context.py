@@ -5,7 +5,6 @@ from typing import Any, Dict, Optional
 
 from ml_models.clients.mnist_client import MNISTClient
 
-
 _CONTEXT: Optional[Context] = None
 
 
