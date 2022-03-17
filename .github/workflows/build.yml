@@ -23,7 +23,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}  # private key
           port: ${{ secrets.PORT }}  # ssh port
-          # fingerprint: ${{ secrets.FINGERPRINT }}
           script_stop: true
           envs: BACKEND_URL,DASHBOARD_PASSWORD,DASHBOARD_URL,FRONTEND_URL
           script: |
@@ -35,5 +34,6 @@ jobs:
             export DASHBOARD_URL=$DASHBOARD_URL
             export FRONTEND_URL=$FRONTEND_URL
             export BACKEND_URL=$BACKEND_URL
+            ./scripts/network.sh
             docker-compose -f docker-compose.traefik.yml up --build -d
             docker-compose -f docker-compose.yml up --build -d
