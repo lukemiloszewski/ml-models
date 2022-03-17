@@ -29,7 +29,6 @@ jobs:
             rm -rf ml-models
             git clone https://github.com/lukemiloszewski/ml-models.git
             cd ml-models/backend
-            export CORS_ORIGINS=$FRONTEND_URL
             export DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
             export DASHBOARD_HASHED_PASSWORD=$(openssl passwd -apr1 $DASHBOARD_PASSWORD)
             export DASHBOARD_URL=$DASHBOARD_URL
