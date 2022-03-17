@@ -2,6 +2,8 @@ services:
 
   backend:
     build: ./
+    environment:
+      - CORS_ORIGINS=${FRONTEND_URL}
     restart: always
     labels:
       # Enable Traefik for this specific "backend" service
@@ -10,12 +12,12 @@ services:
       - traefik.http.services.app.loadbalancer.server.port=80
       # Make Traefik use this domain in HTTP
       - traefik.http.routers.app-http.entrypoints=http
-      - traefik.http.routers.app-http.rule=Host(`api.mlmodels.org`)
+      - traefik.http.routers.app-http.rule=Host(`${BACKEND_URL}`)
       # Use the traefik-public network (declared below)
       - traefik.docker.network=traefik-public
       # Make Traefik use this domain in HTTPS
       - traefik.http.routers.app-https.entrypoints=https
-      - traefik.http.routers.app-https.rule=Host(`api.mlmodels.org`)
+      - traefik.http.routers.app-https.rule=Host(`${BACKEND_URL}`)
       - traefik.http.routers.app-https.tls=true
       # Use the "le" (Let's Encrypt) resolver
       - traefik.http.routers.app-https.tls.certresolver=le
