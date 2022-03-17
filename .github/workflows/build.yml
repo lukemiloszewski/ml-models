@@ -34,6 +34,7 @@ jobs:
             export DASHBOARD_URL=$DASHBOARD_URL
             export FRONTEND_URL=$FRONTEND_URL
             export BACKEND_URL=$BACKEND_URL
+            chmod +x /scripts/network.sh
             ./scripts/network.sh
             docker-compose -f docker-compose.traefik.yml up --build -d
             docker-compose -f docker-compose.yml up --build -d
