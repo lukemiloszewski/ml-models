@@ -15,6 +15,7 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
         with:
           host: ${{ secrets.HOST}}
           username: ${{ secrets.USERNAME }}
@@ -22,12 +23,13 @@ jobs:
           port: ${{ secrets.PORT }}  # ssh port
           # fingerprint: ${{ secrets.FINGERPRINT }}
           script_stop: true
-          envs: DASHBOARD_PASSWORD
+          envs: DASHBOARD_PASSWORD,DASHBOARD_URL
           script: |
             rm -rf ml-models
             git clone https://github.com/lukemiloszewski/ml-models.git
             cd ml-models/backend
             export DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
             export DASHBOARD_HASHED_PASSWORD=$(openssl passwd -apr1 $DASHBOARD_PASSWORD)
+            export DASHBOARD_URL=$DASHBOARD_URL
             docker-compose -f docker-compose.traefik.yml up --build -d
             docker-compose -f docker-compose.yml up --build -d
