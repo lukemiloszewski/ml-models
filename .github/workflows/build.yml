@@ -14,6 +14,7 @@ jobs:
       - name: executing ssh commands using ssh key
         uses: appleboy/ssh-action@master
         env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
@@ -24,7 +25,7 @@ jobs:
           port: ${{ secrets.PORT }}  # ssh port
           # fingerprint: ${{ secrets.FINGERPRINT }}
           script_stop: true
-          envs: DASHBOARD_PASSWORD,DASHBOARD_URL,FRONTEND_URL
+          envs: BACKEND_URL,DASHBOARD_PASSWORD,DASHBOARD_URL,FRONTEND_URL
           script: |
             rm -rf ml-models
             git clone https://github.com/lukemiloszewski/ml-models.git
@@ -32,5 +33,7 @@ jobs:
             export DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
             export DASHBOARD_HASHED_PASSWORD=$(openssl passwd -apr1 $DASHBOARD_PASSWORD)
             export DASHBOARD_URL=$DASHBOARD_URL
+            export FRONTEND_URL=$FRONTEND_URL
+            export BACKEND_URL=$BACKEND_URL
             docker-compose -f docker-compose.traefik.yml up --build -d
             docker-compose -f docker-compose.yml up --build -d
