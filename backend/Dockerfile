@@ -15,6 +15,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 ENV PYTHONPATH=/app
+ENV CORS_ORIGINS=${CORS_ORIGINS}
 
 EXPOSE 80
 
