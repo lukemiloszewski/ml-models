@@ -9,12 +9,6 @@ test:
 flake8:
 	poetry run flake8 src tests
 
-mypy:
-	poetry run mypy src tests
-
-pydocstyle:
-	poetry run pydocstyle src tests
-
 isort:
 	poetry run isort src tests
 
