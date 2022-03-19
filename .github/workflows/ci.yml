@@ -41,7 +41,7 @@ jobs:
 
     - name: Install Development Dependencies
       run: |
-        poetry install --only dev
+        poetry install --no-root
 
     - name: Run Pre-Commit Hooks
       run: |
