@@ -1,0 +1,48 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+    - name: Check out Latest Code
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.9
+        architecture: x64
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.3
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    - name: Display Poetry Configuration
+      run: |
+        poetry env info
+        poetry config --list
+
+    - name: Install Development Dependencies
+      run: |
+        poetry install --only dev
+
+    - name: Run Pre-Commit Hooks
+      run: |
+        make lint
