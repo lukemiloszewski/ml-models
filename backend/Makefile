@@ -15,6 +15,8 @@ isort:
 black:
 	poetry run black src tests
 
+lint: flake8 isort black
+
 pre-commit:
 	poetry run pre-commit run --all-files --show-diff-on-failure --color=always
 
