@@ -18,5 +18,8 @@ black:
 pre-commit:
 	poetry run pre-commit run --all-files --show-diff-on-failure --color=always
 
+requirements:
+	poetry export --extras all --format requirements.txt --output requirements.txt
+
 publish:
 	poetry publish --build
