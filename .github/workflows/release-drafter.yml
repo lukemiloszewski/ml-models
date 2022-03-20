@@ -10,17 +10,8 @@ jobs:
   draft_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Require PR to have one label
-        id: "check_label"
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: exactly
-          count: 1
-          labels: "breaking, feature, bug, chore, dependencies, question, removal, skip-changelog, release"
-
       - name: Draft Release
-        if: ${{ success() }}
-        uses: release-drafter/release-drafter@v5.16.1
+        uses: release-drafter/release-drafter@v5.19.0
         with:
           config-name: release-drafter.yml
         env:
