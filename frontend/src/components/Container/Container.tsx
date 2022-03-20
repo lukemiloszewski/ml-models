@@ -8,6 +8,6 @@ export const Container = styled.div`
   text-align: center;
   max-width: 270px;
   @media (max-width: 768px) {
-    margin: 15px auto 60px; /* top bottom left right */
+    margin: 15px auto 120px; /* top bottom left right */
   }
 `;
