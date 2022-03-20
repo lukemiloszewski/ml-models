@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { Loading } from "@nextui-org/react";
+import { Loading, Modal, Spacer, Text } from "@nextui-org/react";
+import { Setting } from "react-iconly";
 
 import { StyledButton, ButtonGroup, Canvas, Container } from "../../components";
 import { config } from "../../config";
@@ -30,6 +31,11 @@ export function Mnist() {
     },
     enableQuery
   );
+  const [visible, setVisible] = React.useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+  };
 
   return (
     <Container>
@@ -41,16 +47,48 @@ export function Mnist() {
         </StyledButton>
       ) : isFetching ? (
         <StyledButton flat color="primary" auto clickable={false}>
-          <Loading color="primary" size="sm" type="points" />
+          <Loading color="primary" size="md" type="points" />
         </StyledButton>
       ) : (
         <StyledButton
           flat
           color="primary"
           auto
-          clickable={false}
+          onClick={handler}
+          iconRight={<Setting set="bold" />}
         ></StyledButton>
       )}
+      <Modal
+        closeButton
+        blur
+        animated={false}
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" h2>
+            ML Models 🤖
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Text size={14}>
+            The MNIST database is a collection of 70000 handwritten digits
+            commonly used to build machine learning models.
+          </Text>
+          <Spacer y={0.25} />
+          <Text size={14}>
+            This app uses a convolutional neural network, a feed-forward neural
+            network that take's advantage of the spatial nature of the data.
+          </Text>
+          <Spacer y={0.25} />
+          <Text size={14}>
+            To view a prediction made by this model, draw any digit between 0
+            and 9 on the canvas block.
+          </Text>
+          <Spacer y={1} />
+        </Modal.Body>
+      </Modal>
       <ButtonGroup>
         <StyledButton
           flat
