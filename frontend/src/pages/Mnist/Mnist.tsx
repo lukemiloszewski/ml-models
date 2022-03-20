@@ -78,8 +78,8 @@ export function Mnist() {
           </Text>
           <Spacer y={0.25} />
           <Text size={14}>
-            The model used in this application is a convolutional neural network
-            which take's advantage of the spatial nature of the data.
+            The model used in this application is a convolutional neural
+            network, which take's advantage of the spatial nature of the data.
           </Text>
           <Spacer y={0.25} />
           <Text size={14}>
