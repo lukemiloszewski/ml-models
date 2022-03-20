@@ -16,7 +16,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9.0"
-fastapi = "^0.74.0"
+fastapi = "^0.75.0"
 numpy = "^1.22.2"
 onnxruntime = "^1.10.0"
 pydantic = "^1.9.0"
