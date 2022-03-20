@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Loading, Modal, Spacer, Text } from "@nextui-org/react";
-import { Setting } from "react-iconly";
+import { Home } from "react-iconly";
 
 import { StyledButton, ButtonGroup, Canvas, Container } from "../../components";
 import { config } from "../../config";
@@ -55,7 +55,7 @@ export function Mnist() {
           color="primary"
           auto
           onClick={handler}
-          iconRight={<Setting set="bold" />}
+          iconRight={<Home set="bold" />}
         ></StyledButton>
       )}
       <Modal
