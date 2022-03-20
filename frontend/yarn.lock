@@ -5147,6 +5147,7 @@ __metadata:
     react: ^17.0.2
     react-canvas-draw: ^1.2.1
     react-dom: ^17.0.2
+    react-iconly: ^2.2.5
     react-query: ^3.34.16
     react-scripts: 4.0.3
     styled-components: ^5.3.3
@@ -12511,6 +12512,15 @@ __metadata:
   version: 6.0.10
   resolution: "react-error-overlay@npm:6.0.10"
   checksum: e7384f086a0162eecac8e081fe3c79b32f4ac8690c56bde35ab6b6380d10e6c8375bbb689a450902b6615261fcf6c95ea016fc0b200934667089ca83536bc4a7
+  languageName: node
+  linkType: hard
+
+"react-iconly@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "react-iconly@npm:2.2.5"
+  peerDependencies:
+    react: ^16.8.6 || ^17
+  checksum: 868ffd3d9cdd55ecf16ba5638b2a986cceeae0229991e539187be11bd05317d4392f86f9c78e0425cc46f21e04277d38ec1ca8d279579438d09d06bb8eda857f
   languageName: node
   linkType: hard
 
