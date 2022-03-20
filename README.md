@@ -6,7 +6,7 @@
 `ML Models` is a showcase of popular machine learning models.
 
 * frontend: [www.mlmodels.org](https://www.mlmodels.org)
-* backend: [api.mlmodels.org](https://api.mlmodels.org)
+* backend: [api.mlmodels.org](https://api.mlmodels.org/docs)
 
 ### Frontend
 
@@ -21,11 +21,12 @@
 
 * `Python`
 * `Poetry` - dependency management and packaging
-* `ONNX` - machine learning models and inference runtime
 * `FastAPI` - API
-* `Docker` and `Docker Compose` - deployment
-* `DigitalOcean` - hosting
+* `ONNX` - machine learning models and inference runtime
+* `Traefik` - reverse proxy and SSL
+* `Docker Compose` - deployment
 * `GitHub Actions` - CI/CD
+* `DigitalOcean` - hosting
 
 ## Installation
 
@@ -74,7 +75,7 @@ CORS_ORIGINS=<frontend_url>
 * run app for development:
 
 ```shell
-poetry run scripts/main.py
+poetry run python scripts/main.py
 ```
 
 ## Deployment
@@ -85,7 +86,7 @@ The frontend application is running at [www.mlmodels.org](https://www.mlmodels.o
 
 ### Backend
 
-The backend application is running at [api.mlmodels.org](https://api.mlmodels.org). It is deployed via GitHub through GitHub Actions using Docker and Docker Compose.
+The backend application is running at [api.mlmodels.org/docs](https://api.mlmodels.org). It is deployed via GitHub through GitHub Actions using Docker and Docker Compose.
 
 The following GitHub secrets are required:
 
