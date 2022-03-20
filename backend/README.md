@@ -24,7 +24,7 @@ poetry run python scripts/main.py
 
 ## Deployment
 
-The backend application is running at [api.mlmodels.org/docs](https://api.mlmodels.org). It is deployed via GitHub through GitHub Actions using Docker and Docker Compose.
+The backend application is running at [api.mlmodels.org](https://api.mlmodels.org/docs). It is deployed via GitHub through GitHub Actions using Docker and Docker Compose.
 
 The following GitHub secrets are required:
 
