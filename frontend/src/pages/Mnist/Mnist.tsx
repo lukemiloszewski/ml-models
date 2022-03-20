@@ -78,13 +78,13 @@ export function Mnist() {
           </Text>
           <Spacer y={0.25} />
           <Text size={14}>
-            This app uses a convolutional neural network, a feed-forward neural
-            network that take's advantage of the spatial nature of the data.
+            The model used in this application is a convolutional neural network
+            which take's advantage of the spatial nature of the data.
           </Text>
           <Spacer y={0.25} />
           <Text size={14}>
             To view a prediction made by this model, draw any digit between 0
-            and 9 on the canvas block.
+            and 9 within the canvas block.
           </Text>
           <Spacer y={1} />
         </Modal.Body>
