@@ -10,9 +10,9 @@ click==8.0.4; python_version >= "3.7" \
 colorama==0.4.4; python_version >= "3.7" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.7" and python_full_version >= "3.5.0" \
     --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2 \
     --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b
-fastapi==0.75.0; python_full_version >= "3.6.1" \
-    --hash=sha256:43d12891b78fc497a50623e9c7c24640c569489f060acd9ce2c4902080487a93 \
-    --hash=sha256:124774ce4cb3322841965f559669b233a0b8d343ea24fdd8b293253c077220d7
+fastapi==0.75.2; python_full_version >= "3.6.1" \
+    --hash=sha256:a70d31f4249b6b42dbe267667d22f83af645b2d857876c97f83ca9573215784f \
+    --hash=sha256:b5dac161ee19d33346040d3f44d8b7a9ac09b37df9efff95891f5e7641fa482f
 flatbuffers==2.0 \
     --hash=sha256:3751954f0604580d3219ae49a85fafec9d85eec599c0b96226e1bc0b48e57474 \
     --hash=sha256:12158ab0272375eab8db2d663ae97370c33f152b27801fa6024e1d6105fd4dd2
