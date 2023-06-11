@@ -1,9 +1,7 @@
 <h1 align="center">ML Models</h1>
-<p align="center">Build, deploy and monitor machine learning models 🤖</p>
+<p align="center">End-to-end digit recognition machine learning application 🔢</p>
 
 ## Overview
-
-`ML Models` is a showcase of popular machine learning models.
 
 * frontend: [www.mlmodels.org](https://www.mlmodels.org)
 * backend: [api.mlmodels.org](https://api.mlmodels.org/docs)
